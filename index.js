@@ -49,14 +49,14 @@ const express = require('express');
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
-const admin = require('firebase-admin');
-const serviceAccount = require('./firebase-adminsdk.json');
+// const admin = require('firebase-admin');
+// const serviceAccount = require('./firebase-adminsdk.json');
 
 // Initialize Firebase Admin SDK
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://your-project-id.firebaseio.com",
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://your-project-id.firebaseio.com",
+// });
 
 const server = http.createServer();
 
@@ -78,17 +78,17 @@ let drawingData = [];
 let undoStack = [];
 let redoStack = [];
 
-io.use(async (socket, next) => {
-  const token = socket.handshake.query.token;
-  try {
-    const decodedToken = await admin.auth().verifyIdToken(token);
-    socket.user = decodedToken;
-    next();
-  } catch (error) {
-    console.error('Authentication error:', error);
-    next(new Error('Authentication error'));
-  }
-});
+// io.use(async (socket, next) => {
+//   const token = socket.handshake.query.token;
+//   try {
+//     const decodedToken = await admin.auth().verifyIdToken(token);
+//     socket.user = decodedToken;
+//     next();
+//   } catch (error) {
+//     console.error('Authentication error:', error);
+//     next(new Error('Authentication error'));
+//   }
+// });
 
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.user.uid}`);
